@@ -3,7 +3,7 @@ import {Redirect} from 'react-router-dom';
 import {Form,Input,Button,message,Checkbox} from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './login.less';
-import logo from './images/logo.png';
+import logo from '../../assets/images/logo.png';
 import memoryUtils from '../../utils/memoryUtils';
 import storageUtils from '../../utils/storageUtils';
 import {reqLogin} from '../../api';
@@ -58,7 +58,7 @@ export default class Login extends Component{
             memoryUtils.user = user; //保存在内存中☆
             storageUtils.saveUser(user) //保存到local中
 
-            this.props.history.replace('/'); //跳转到管理页面，且不需要回退到登录
+            this.props.history.replace('/admin'); //跳转到管理页面，且不需要回退到登录
         }else{//登录失败
             message.error(result.msg);//提示错误信息
         }
@@ -75,7 +75,7 @@ render(){
     //如果用户已经登录，自动跳转到管理界面
     const user = memoryUtils.user
     if(user && user._id){
-        return<Redirect to = '/' />
+        return<Redirect to = '/admin' />
     }
     return(
         <div className='login'>
