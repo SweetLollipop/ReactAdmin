@@ -8,7 +8,7 @@ export default class Category extends Component {
     render() {
         return (
             <div>
-                商品分类组件
+                品类管理组件
             </div>
         );
     }

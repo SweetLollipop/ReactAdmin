@@ -54,9 +54,9 @@ export default class LeftNav extends Component {
                     mode="inline"
                     theme="dark"
                     inlineCollapsed={this.state.collapsed}
-                    >
-                        <Menu.Item key="1" icon={<HomeOutlined />}>
-                            首页
+                    >   
+                        <Menu.Item key="1" icon={<HomeOutlined />} >           
+                        <Link to="/home">首页组件</Link>
                         </Menu.Item>
                         {/* <Menu.Item key="2" icon={<DesktopOutlined />}>
                             Option 2
@@ -65,8 +65,12 @@ export default class LeftNav extends Component {
                             Option 3
                         </Menu.Item> */}
                         <SubMenu key="sub1" icon={<ShoppingOutlined />} title="商品">
-                            <Menu.Item key="5" icon={<ProfileOutlined />}>品类管理</Menu.Item>
-                            <Menu.Item key="6" icon={<GiftOutlined />}>商品管理</Menu.Item>
+                            <Menu.Item key="5" icon={<ProfileOutlined />} >
+                                <Link to="/category">品类管理</Link>                                 
+                            </Menu.Item>                            
+                            <Menu.Item key="6" icon={<GiftOutlined />}>
+                                <Link to="/product">商品管理</Link>
+                            </Menu.Item>
                             {/* <Menu.Item key="7">Option 7</Menu.Item>
                             <Menu.Item key="8">Option 8</Menu.Item> */}
                         </SubMenu>                       
@@ -79,15 +83,21 @@ export default class LeftNav extends Component {
                             </SubMenu>
                         </SubMenu> */}
                         <Menu.Item key="13" icon={<UserOutlined />}>
-                            用户管理
+                            <Link to="/user">用户管理</Link>
                         </Menu.Item>
                         <Menu.Item key="14" icon={<IdcardOutlined />}>
-                            角色管理
+                            <Link to="/role">角色管理</Link>
                         </Menu.Item>
                         <SubMenu key="sub4" icon={<AreaChartOutlined />} title="图形图表">
-                            <Menu.Item key="15" icon={<BarChartOutlined />}>柱形图</Menu.Item>
-                            <Menu.Item key="16" icon={<LineChartOutlined />}>折线图</Menu.Item>
-                            <Menu.Item key="17" icon={<PieChartOutlined />}>饼状图</Menu.Item>
+                            <Menu.Item key="15" icon={<BarChartOutlined />}>
+                                <Link to="/charts/bar">柱形图</Link>
+                            </Menu.Item>
+                            <Menu.Item key="16" icon={<LineChartOutlined />}>
+                                <Link to="/charts/line">折线图</Link>
+                            </Menu.Item>
+                            <Menu.Item key="17" icon={<PieChartOutlined />}>
+                                <Link to="/charts/pie">饼状图</Link>
+                            </Menu.Item>
                         </SubMenu>         
                     </Menu>
                 </div>
