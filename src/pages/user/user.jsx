@@ -6,8 +6,8 @@ import {
   Modal,
 } from 'antd';
 import { formateDate } from '../../utils/dateUtils';
-import { Link } from 'react-router-dom';
-
+import LinkButton from '../../components/link-button';
+import { PAGE_SIZE } from '../../utils/constants';
 /**
  * 用户管理路由
  */
@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 export default class User extends Component {
     state = {  
         users: [], // 所有的用户列表
+        isShow: false, //是否显示确认框
     }
 
     innitColumns = () =>{
@@ -44,19 +45,25 @@ export default class User extends Component {
                 title: '操作',
                 render: (user) =>(
                     <span>
-                        <Link>修改</Link>
-                        <Link>删除</Link>
+                        <LinkButton>修改</LinkButton>
+                        <LinkButton>删除</LinkButton>
                     </span>
                 )
             },
         ]
     }
 
+    /*
+    添加或更新用户
+    */
+   addOrUpdateUser = () =>{
+       
+   }
     componentWillMount(){
         this.innitColumns()
     }
     render() {
-        const {users} = this.state
+        const {users, isShow} = this.state
         const title = <Button type='primary'>创建用户</Button>
 
         return (
@@ -66,9 +73,17 @@ export default class User extends Component {
                   rowKey='_id'
                   dataSource={users}
                   columns={this.columns}
+                  pagination={{defaultPageSize: PAGE_SIZE}}
+                />
+                <Modal
+                  title="添加用户"
+                  visible={isShow}
+                  onOk={this.addOrUpdateUser}
+                  onCancel={() => this.setState({isShow: false})}
                 >
-
-                </Table>
+                    <div>添加/更新界面</div>
+                </Modal>
+                
             </Card>
         );
     }

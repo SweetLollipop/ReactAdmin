@@ -54,7 +54,7 @@ export default class LeftNav extends Component {
                     defaultOpenKeys={['sub1']}
                     mode="inline"
                     theme="dark"
-                    inlineCollapsed={this.state.collapsed}
+                    // inlineCollapsed={this.state.collapsed}
                     >   
                         <Menu.Item key="1" icon={<HomeOutlined />} >           
                         <Link to="/home">首页组件</Link>
