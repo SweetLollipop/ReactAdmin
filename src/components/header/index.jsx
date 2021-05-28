@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { Modal } from 'antd';
+
+import LinkButton from '../link-button';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import memoryUtils from '../../utils/memoryUtils';
 import storageUtils from '../../utils/storageUtils';
@@ -36,7 +38,7 @@ class Header extends Component {
             <div className="header">
                 <div className="header-top">
                     <span>欢迎，admin</span>
-                    <a href="" onClick={this.logout}>退出</a>                   
+                    <LinkButton href="" onClick={this.logout}>退出</LinkButton>                   
                 </div>
                 <div className="header-bottom">
                     <div className="header-bottom-left">首页</div>
