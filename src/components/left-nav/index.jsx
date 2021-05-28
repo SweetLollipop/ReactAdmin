@@ -50,6 +50,7 @@ export default class LeftNav extends Component {
                     </Button>
                     <Menu
                     defaultSelectedKeys={['1']}
+                    // selectedKeys={[this.props.history.location.pathname]}
                     defaultOpenKeys={['sub1']}
                     mode="inline"
                     theme="dark"
@@ -108,3 +109,5 @@ export default class LeftNav extends Component {
         );
     }
 }
+
+// export default withRouter(LeftNav);
