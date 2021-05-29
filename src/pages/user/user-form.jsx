@@ -104,7 +104,7 @@ class UserForm extends PureComponent {
                 name='role_id'
                 innitalValue=''
               >
-                    <Select>
+                    <Select placeholder="请选择角色">
                       <Option value='董事长'>董事长</Option>
                       <Option value='总经理'>总经理</Option>                     
                       <Option value='员工'>员工</Option>
@@ -114,7 +114,7 @@ class UserForm extends PureComponent {
                       {
                         roles.map(role => <Option key={role._id} value={role._id}>{role.name}</Option>)
                       }
-                    </Select> */}
+                    // </Select> */}
               </Item>        
             </Form>
         )
