@@ -8,6 +8,7 @@ import {
 import { formateDate } from '../../utils/dateUtils';
 import LinkButton from '../../components/link-button';
 import { PAGE_SIZE } from '../../utils/constants';
+import { reqUsers } from '../../api';
 /**
  * 用户管理路由
  */
@@ -15,6 +16,7 @@ import { PAGE_SIZE } from '../../utils/constants';
 export default class User extends Component {
     state = {  
         users: [], // 所有的用户列表
+        roles: [], // 所有角色的列表
         isShow: false, //是否显示确认框
     }
 
@@ -40,6 +42,8 @@ export default class User extends Component {
             {
                 title: '所属角色',
                 dataIndex: 'role_id',
+                // render: (role_id) => this.state.roles.find(role => role_id===role_id).name
+                render: (role_id) => this.roleNames[role_id],
             },
             {
                 title: '操作',
@@ -54,14 +58,47 @@ export default class User extends Component {
     }
 
     /*
+    根据role的数组，生成包含所有角色名的对象（属性名用角色id值）
+    */
+    innitRoleNames = (roles) =>{
+        const roelNames = roles.reduce((pre,role) => {
+            pre[role._id] = role.name;
+            return pre;
+        },{})
+        //保存roelNames
+        this.roleNames = roelNames;
+    }
+
+    /*
     添加或更新用户
     */
-   addOrUpdateUser = () =>{
+    addOrUpdateUser = () =>{
        
-   }
-    componentWillMount(){
-        this.innitColumns()
     }
+    
+    /*
+    获取所有用户列表
+    */
+    getUsers = async() => {
+        const result = await reqUsers();
+        if (result.status===0) {
+           const {users, roles} = result.data;
+           this.innitRoleNames(roles);
+           this.setState({
+               users,
+               roles,
+           }) 
+        }
+    }
+
+    componentWillMount(){
+        this.innitColumns();
+    }
+
+    componentDidMount(){
+        this.getUsers();
+    }
+
     render() {
         const {users, isShow} = this.state
         const title = <Button type='primary'>创建用户</Button>
