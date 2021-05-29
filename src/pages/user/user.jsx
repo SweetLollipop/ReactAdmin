@@ -10,17 +10,24 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { formateDate } from '../../utils/dateUtils';
 import LinkButton from '../../components/link-button';
 import { PAGE_SIZE } from '../../utils/constants';
-import { reqDeleteUser, reqUsers } from '../../api';
+import { reqAddUser, reqDeleteUser, reqUsers } from '../../api';
+import UserForm from './user-form.jsx';
 /**
  * 用户管理路由
  */
 
 export default class User extends Component {
-    state = {  
-        users: [], // 所有的用户列表
-        roles: [], // 所有角色的列表
-        isShow: false, //是否显示确认框
+
+    constructor(props){
+        super(props);
+        this.state={
+            users: [], // 所有的用户列表
+            roles: [], // 所有角色的列表
+            isShow: false, //是否显示确认框
+        }
     }
+
+    formRef = React.createRef();
 
     innitColumns = () =>{
         this.columns = [
@@ -33,7 +40,7 @@ export default class User extends Component {
               dataIndex: 'email',
             },
             {
-              title: '电话',
+              title: '手机号',
               dataIndex: 'phone',
             },
             {
@@ -95,8 +102,19 @@ export default class User extends Component {
     /*
     添加或更新用户
     */
-    addOrUpdateUser = () =>{
-       
+    addOrUpdateUser = async() =>{
+       this.setState({isShow: false});
+       console.log("formData:",this.formRef.current.formRef.current.getFieldsValue());
+       //1.收集输入数据
+       const user = this.formRef.current.formRef.current.getFieldsValue();
+       this.formRef.current.formRef.current.resetFields();
+       //2.提交添加的请求
+       const result = await reqAddUser(user);
+       //3.更新列表显示
+       if(result.status===0){
+          message.success('添加用户');
+          this.getUsers();
+       }
     }
     
     /*
@@ -123,8 +141,13 @@ export default class User extends Component {
     }
 
     render() {
-        const {users, isShow} = this.state
-        const title = <Button type='primary'>创建用户</Button>
+        const {users, roles, isShow} = this.state
+        const title = <Button
+                        type='primary'
+                        onClick={() => this.setState({isShow: true})}
+                      >
+                        创建用户
+                      </Button>
 
         return (
             <Card title={title}>
@@ -141,7 +164,7 @@ export default class User extends Component {
                   onOk={this.addOrUpdateUser}
                   onCancel={() => this.setState({isShow: false})}
                 >
-                    <div>添加/更新界面</div>
+                    <UserForm ref={this.formRef} roles={roles}/>
                 </Modal>
                 
             </Card>
