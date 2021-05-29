@@ -4,11 +4,13 @@ import {
   Button,
   Table,
   Modal,
+  message,
 } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { formateDate } from '../../utils/dateUtils';
 import LinkButton from '../../components/link-button';
 import { PAGE_SIZE } from '../../utils/constants';
-import { reqUsers } from '../../api';
+import { reqDeleteUser, reqUsers } from '../../api';
 /**
  * 用户管理路由
  */
@@ -50,7 +52,7 @@ export default class User extends Component {
                 render: (user) =>(
                     <span>
                         <LinkButton>修改</LinkButton>
-                        <LinkButton>删除</LinkButton>
+                        <LinkButton onClick={() => this.deleteUser(user)}>删除</LinkButton>
                     </span>
                 )
             },
@@ -67,6 +69,27 @@ export default class User extends Component {
         },{})
         //保存roelNames
         this.roleNames = roelNames;
+    }
+
+    /*
+    删除指定用户
+    */
+    deleteUser = (user) => {
+        Modal.confirm({
+            title: `确认删除 ${user.username} 吗？`,
+            icon: <ExclamationCircleOutlined />,
+            content: 'Some descriptions',
+            onOk: async () => {
+                // console.log('OK');
+                const result = await reqDeleteUser(user._id);
+                if(result.status===0)
+                message.success('删除用户成功！')
+                this.getUsers();
+            },
+            onCancel() {
+                // console.log('Cancel');
+            }
+        })
     }
 
     /*

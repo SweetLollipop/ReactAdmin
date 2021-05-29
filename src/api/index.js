@@ -16,6 +16,9 @@ export const reqLogin = (username, password) => ajax(BASE + '/login', {username,
 //获取所有用户列表
 export const reqUsers = () => ajax(BASE + '/manage/user/list');
 
+//删除指定用户
+export const reqDeleteUser = (userId) => ajax(BASE + '/manage/user/delete', {userId}, 'POST');
+
 
 //添加用户
 export const reqAddUser = (user) => ajax(BASE + '/manage/user/add', user, 'POST');
