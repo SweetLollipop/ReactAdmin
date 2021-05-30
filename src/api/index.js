@@ -20,5 +20,5 @@ export const reqUsers = () => ajax(BASE + '/manage/user/list');
 export const reqDeleteUser = (userId) => ajax(BASE + '/manage/user/delete', {userId}, 'POST');
 
 
-//添加用户
-export const reqAddUser = (user) => ajax(BASE + '/manage/user/add', user, 'POST');
+//添加或修改用户
+export const reqAddOrUpdateUser = (user) => ajax(BASE + '/manage/user/'+(user._id ? 'update' : 'add'), user, 'POST');
