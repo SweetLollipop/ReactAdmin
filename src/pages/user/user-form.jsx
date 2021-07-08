@@ -39,7 +39,7 @@ class UserForm extends PureComponent {
         const {roles, user} = this.props;
         
         return (
-            <Form {...formItemLayout} ref={this.formRef}> 
+            <Form {...formItemLayout} ref={this.formRef} > 
               {/* <Item label='所属分类'> 
                 { 
                   getFieldDecorator('parentId', { 

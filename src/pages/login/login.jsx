@@ -58,7 +58,7 @@ export default class Login extends Component{
             memoryUtils.user = user; //保存在内存中☆
             storageUtils.saveUser(user) //保存到local中
 
-            this.props.history.replace('/admin'); //跳转到管理页面，且不需要回退到登录
+            this.props.history.replace('/'); //跳转到管理页面，且不需要回退到登录
         }else{//登录失败
             message.error(result.msg);//提示错误信息
         }
